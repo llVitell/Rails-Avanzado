@@ -8,6 +8,7 @@ rails generate model Moviegoer name:string provider:string uid:string
 
 Una vez hecho esto ejecutamos `rake db:migrate` para correr nuestra migracion y tener la tabla creada correctamente.
 
+![imagen1](./imagenes/img1.png)
 ***
 **Pregunta**
 - Explica el código siguiente:
@@ -58,6 +59,8 @@ El método `new` inicializa una nueva instancia de `Movie`, mientras que `create
 El método `edit` prepara la edición de una película existente, y `update` gestiona la actualización de los detalles de una película, redirigiendo o mostrando alertas según el resultado.
 
 Por último, `destroy` elimina una película por su ID y redirige a la página de índice. El método privado `movie_params` especifica los atributos permitidos para la creación o actualización, proporcionando una capa de seguridad en la manipulación de datos.
+
+![imagen2](imagenes/img2.png)
 ***
 
 Se puede autenticar al usuario a través de un tercero. Usar la excelente gema OmniAuth que proporciona una API uniforme para muchos proveedores de SSO diferentes. El código siguiente muestra los cambios necesarios en sus rutas, controladores y vistas para usar OmniAuth.
@@ -68,8 +71,12 @@ Se puede autenticar al usuario a través de un tercero. Usar la excelente gema O
 bundle install
 ```
 
+![imagen3](imagenes/img3.png)
+![imagen32](imagenes/img32.png)
+
 2. Creamos el archivo `sessions_controller.rb` dentro de la carpeta `controllers` e insertamos el siguiente código
 
+![imagen4](imagenes/img4.png)
 ```Ruby
 class SessionsController < ApplicationController
     # login & logout actions should not require user to be logged in
@@ -95,6 +102,8 @@ end
 
 3. Definimos las rutas en `config/routes.rb`
 
+![imagen5](imagenes/img5.png)
+
 ```Ruby
 get  'auth/:provider/callback' => 'sessions#create'
 get  'auth/failure' => 'sessions#failure'
@@ -104,6 +113,7 @@ post 'logout' => 'sessions#destroy'
 
 4. Por último creamos el archivo `omniauth`.rb con nuestras apis dentro de los `initializers` para que la aplicación se ejecute con esta `config`
 
+![imagen6](imagenes/img6.png)
 ```Ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter, "API_KEY", "API_SECRET"
@@ -143,11 +153,15 @@ Crea y aplica esta migración para crear la tabla `Reviews`. Las claves foraneas
 rails generate migration create_reviews'
 ```
 
+![imagen7](imagenes/img7.png)
+
 2. Una vez creada ejecutamos
 
 ```shell
 rake db:migrate
 ```
+
+![imagen8](imagenes/img8.png)
 
 3. Creamos el nuevo modelo de revisión dentro de `app/models/review.rb`
 
@@ -158,12 +172,15 @@ class Review < ActiveRecord::Base
 end
 ```
 
+![imagen9](imagenes/img9.png)
+
 4. Por último colocamos una copia de la siguiente línea en cualquier lugar dentro de la clase `Movie` Y dentro de la clase `Moviegoer`, es decir realiza este cambio de una línea en cada uno de los archivos existentes movie.rb y moviegoer.rb.
 
 ```ruby
 has_many :reviews
 ```
 
+![imagen10](imagenes/img10.png)
 ***
 
 **Pregunta**
